@@ -14,29 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <wiringPi.h> //contains arduino-like commands (digitalWrite(), etc.)
+#include "stdint.h" //contains "uint8_t" variable type
+#include <stdlib.h> //contains "rand()"
 
 #ifndef RFTRANSMITTER_H_
 #define RFTRANSMITTER_H_
 
-#if ARDUINO >= 100
-#include "Arduino.h"
-#else
-#include "WProgram.h"
-#include "pins_arduino.h"
-#endif
+//#if ARDUINO >= 100
+//#include "Arduino.h"
+//#else
+//#include "WProgram.h"
+//#include "pins_arduino.h"
+//#endif
 
 
 class RFTransmitter {
-    byte packageId;
+    uint8_t packageId;
 
-    const byte nodeId, outputPin;
+    const uint8_t nodeId, outputPin;
     // Pulse lenght in microseconds
     const unsigned int pulseLength;
     // Backoff period for repeated sends in milliseconds
     unsigned int backoffDelay;
     // How often a reliable package is resent
-    byte resendCount;
-    byte lineState;
+    uint8_t resendCount;
+    uint8_t lineState;
 
     void send0() {
       lineState = !lineState;
@@ -68,8 +71,8 @@ class RFTransmitter {
       send1();
     }
 
-    void sendByte(byte data) {
-      byte i = 4;
+    void sendByte(uint8_t data) {
+      uint8_t i = 4;
       do {
         switch(data & 3) {
         case 0:
@@ -89,17 +92,17 @@ class RFTransmitter {
       } while(--i);
     }
 
-    void sendByteRed(byte data) {
+    void sendByteRed(uint8_t data) {
       sendByte(data);
       sendByte(data);
       sendByte(data);
     }
 
-    void sendPackage(byte *data, byte len);
+    void sendPackage(uint8_t *data, uint8_t len);
 
   public:
-    RFTransmitter(byte outputPin, byte nodeId = 0, unsigned int pulseLength = 100,
-        unsigned int backoffDelay = 100, byte resendCount = 1) : packageId(0), nodeId(nodeId), outputPin(outputPin),
+    RFTransmitter(uint8_t outputPin, uint8_t nodeId = 0, unsigned int pulseLength = 99,
+        unsigned int backoffDelay = 100, uint8_t resendCount = 1) : packageId(0), nodeId(nodeId), outputPin(outputPin),
         pulseLength(pulseLength), backoffDelay(backoffDelay), resendCount(resendCount) {
 
       pinMode(outputPin, OUTPUT);
@@ -108,26 +111,26 @@ class RFTransmitter {
     }
 
     void setBackoffDelay(unsigned int millies) { backoffDelay = millies; }
-    void send(byte *data, byte len);
-    void resend(byte *data, byte len);
-    void print(char *message) { send((byte *)message, strlen(message)); }
-    void print(unsigned int value, byte base = DEC) {
-      char printBuf[5];
-      byte len = 0;
-
-      for (byte i = sizeof(printBuf) - 1; i >= 0; --i, ++len) {
-        printBuf[i] = "0123456789ABCDEF"[value % base];
-        value /= base;
-      }
-
-      byte *data = (byte *)printBuf;
-      while (*data == '0' && len > 1) {
-        --len;
-        ++data;
-      }
-
-      send(data, len);
-    }
+    void send(uint8_t *data, uint8_t len);
+    void resend(uint8_t *data, uint8_t len);
+//    void print(char *message) { send((uint8_t *)message, strlen(message)); }
+//    void print(unsigned int value, uint8_t base = DEC) {
+//      char printBuf[5];
+//      uint8_t len = 0;
+//
+//      for (uint8_t i = sizeof(printBuf) - 1; i >= 0; --i, ++len) {
+//        printBuf[i] = "0123456789ABCDEF"[value % base];
+//        value /= base;
+//      }
+//
+//      uint8_t *data = (uint8_t *)printBuf;
+//      while (*data == '0' && len > 1) {
+//        --len;
+//       ++data;
+//      }
+//
+//      send(data, len);
+//    }
 };
 
 #endif /* RFTRANSMITTER_H_ */

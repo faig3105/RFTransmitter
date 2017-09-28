@@ -40,20 +40,20 @@ static inline uint16_t crc_update(uint16_t crc, uint8_t data) {
   #endif
 }
 
-void RFTransmitter::sendPackage(byte *data, byte len) {
+void RFTransmitter::sendPackage(uint8_t *data, uint8_t len) {
   // Synchronize receiver
   sendByte(0x00);
   sendByte(0x00);
   sendByte(0xE0);
 
   // Add from, id and crc to the message
-  byte packageLen = len + 4;
+  uint8_t packageLen = len + 4;
   sendByteRed(packageLen);
 
   uint16_t crc = 0xffff;
   crc = crc_update(crc, packageLen);
 
-  for (byte i = 0; i < len; ++i) {
+  for (uint8_t i = 0; i < len; ++i) {
     sendByteRed(data[i]);
     crc = crc_update(crc, data[i]);
   }
@@ -71,19 +71,19 @@ void RFTransmitter::sendPackage(byte *data, byte len) {
   lineState = LOW;
 }
 
-void RFTransmitter::resend(byte *data, byte len) {
+void RFTransmitter::resend(uint8_t *data, uint8_t len) {
   if (len > MAX_PAYLOAD_SIZE)
     len = MAX_PAYLOAD_SIZE;
 
   sendPackage(data, len);
 
-  for (byte i = 0; i < resendCount; ++i) {
-    delay(random(backoffDelay, backoffDelay << 1));
+  for (uint8_t i = 0; i < resendCount; ++i) {
+    rand() % backoffDelay + backoffDelay; 
     sendPackage(data, len);
   }
 }
 
-void RFTransmitter::send(byte *data, byte len) {
+void RFTransmitter::send(uint8_t *data, uint8_t len) {
   ++packageId;
   resend(data, len);
 }
