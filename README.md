@@ -3,7 +3,7 @@ RFTransmitter
 
 ![433 MHz modules](https://github.com/zeitgeist87/RFTransmitter/raw/master/images/xy-mk-5v.jpg)
 
-Adapted for RaspberryPi/OrangePi (RaspberryPi/OrangePi as transmitter) of the Arduino library for low-cost 433 MHz transmitter modules with a focus on
+Adapted for RaspberryPi/OrangePi (as transmitter) version of the Arduino library for low-cost 433 MHz transmitter modules with a focus on
 reliable one-way communication and forward error correction. 
 It is designed for use with Arduino receiver (with original RFReceiver library). 
 
