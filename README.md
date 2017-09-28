@@ -19,6 +19,10 @@ So receiver must be configured accordingly: "RFReceiver receiver(INPUT_PIN, 99);
 3) Changed some variable types, so they are compatible with linux copilers
 4) Changed the random function. It defers from the one for arduino 
 
+Links to wiringpi.h libraries:
+RaspberryPi: http://wiringpi.com/download-and-install/
+OrangePi-Zero: https://github.com/xpertsavenue/WiringOP-Zero
+OrangePi-PC: https://github.com/zhaolei/WiringOP
 
 Usage
 -----
