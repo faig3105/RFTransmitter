@@ -1,5 +1,5 @@
 {
-    "name": "RFTransmitter",
+    "name": "RFTransmitter for RaspberryPi/OrangePi",
     "description": "Library for low-cost 433 MHz transmitter modules with forward error correction.",
     "keywords": "transmitter, 433mhz, crc",
     "authors": [
