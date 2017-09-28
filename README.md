@@ -16,17 +16,17 @@ Changes that I've made:
 So receiver must be configured accordingly: "RFReceiver receiver(INPUT_PIN, 99); //sets pulseLength to 99".
 
 2) Added libraries necessary for compiling on linux.
-3) Changed some variable type so they are compatible with linux copilers
-4) Changed random function. It defers from the one for arduino 
+3) Changed some variable types, so they are compatible with linux copilers
+4) Changed the random function. It defers from the one for arduino 
 
 
 Usage
 -----
-At the receiver side initialize it with additional parameters:
+Receiver side: initialize it with additional parameters:
 RFReceiver receiver(INPUT_PIN, 99); //sets pulseLength to 99
 
 
-![433 MHz module connection](https://github.com/zeitgeist87/RFTransmitter/raw/master/images/xy-mk-5v-connect.jpg)
+Transmitter side:
 
 ```cpp
 #include <wiringPi.h>
@@ -67,4 +67,8 @@ g++ -lwiringPi -o [name of executable file as result] [name of main code files] 
 example (case when all mentioned files were placed in one folder): 
 
 g++ -lwiringPi -o HelloWorldTransmitter HelloWorldTransmitter.cpp RFTransmitter.cpp
+
+After compilation just run HelloWorldTransmitter binary to send desired message. 
+To run it, type this if you are in the same folder: ./HelloWorldTransmitter
+
 
