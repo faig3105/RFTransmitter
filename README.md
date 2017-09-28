@@ -11,7 +11,7 @@ The corresponding (original) [RFReceiver library](https://github.com/zeitgeist87
 for the 433 MHz receiver modules can
 be found [here](https://github.com/zeitgeist87/RFReceiver).
 
-Changes that I made: 
+Changes that I've made: 
 1) "pulseLenght" is 99 by default. It must be 99 or lower (with 100 and above RaspberryPi/OrangePi will not work).
 So receiver must be configured accordingly: "RFReceiver receiver(INPUT_PIN, 99); //sets pulseLength to 99".
 
