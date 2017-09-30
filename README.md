@@ -13,7 +13,9 @@ be found [here](https://github.com/zeitgeist87/RFReceiver).
 
 Links to "wiringpi.h" libraries:
 RaspberryPi: http://wiringpi.com/download-and-install/
+
 OrangePi-Zero: https://github.com/xpertsavenue/WiringOP-Zero
+
 OrangePi-PC: https://github.com/zhaolei/WiringOP
 
 
