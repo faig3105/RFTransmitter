@@ -101,7 +101,7 @@ class RFTransmitter {
     void sendPackage(uint8_t *data, uint8_t len);
 
   public:
-    RFTransmitter(uint8_t outputPin, uint8_t nodeId = 0, unsigned int pulseLength = 99,
+    RFTransmitter(uint8_t outputPin, uint8_t nodeId = 0, unsigned int pulseLength = 100,
         unsigned int backoffDelay = 100, uint8_t resendCount = 1) : packageId(0), nodeId(nodeId), outputPin(outputPin),
         pulseLength(pulseLength), backoffDelay(backoffDelay), resendCount(resendCount) {
 

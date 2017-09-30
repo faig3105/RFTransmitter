@@ -88,11 +88,14 @@ example (case when all mentioned files were placed in one folder):
 g++ -lwiringPi -o HelloWorldTransmitter HelloWorldTransmitter.cpp RFTransmitter.cpp
 ```
 After compilation just run "HelloWorldTransmitter" binary to send desired message. 
-To run it if you are in the same folder, type this and press "Enter": ./HelloWorldTransmitter
+To run it if you are in the same folder, type this and press "Enter": 
+```
+./HelloWorldTransmitter
+```
 
 
-
-In addition:
+P.S.
+-----
 Because of buffer overflow in the "millis()" function, after 50 days of running without restart, it would freeze and require restart to operate as normal again. 
 I already have a workaround for this issue, and will try to implement it in this project as soon as possible.
 
