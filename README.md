@@ -28,10 +28,10 @@ So receiver must be configured accordingly: "RFReceiver receiver(INPUT_PIN, 99);
 
 IMPORTANT NOTE
 -----
-Use almost perfect 5V power supply for Receiver module (USB port cant give you such power, use additional power supplies), 
+Use almost perfect 5V power supply for the RECEIVER module (USB port cant give you such power, use additional power supplies), 
 otherwise you will experience strange behaviour while transmitting messages to it!
 
-Howewer transmitter module can operate with 3.3V - 5V power supply.
+Transmitter module can operate with 3.3V - 5V power supply.
 
 Usage
 -----
