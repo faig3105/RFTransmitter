@@ -11,24 +11,37 @@ The corresponding (original) [RFReceiver library](https://github.com/zeitgeist87
 for the 433 MHz receiver modules can
 be found [here](https://github.com/zeitgeist87/RFReceiver).
 
+Links to "wiringpi.h" libraries:
+RaspberryPi: http://wiringpi.com/download-and-install/
+OrangePi-Zero: https://github.com/xpertsavenue/WiringOP-Zero
+OrangePi-PC: https://github.com/zhaolei/WiringOP
+
+
 Changes that I've made: 
-1) "pulseLenght" is 99 by default. It must be 99 or lower (with 100 and above RaspberryPi/OrangePi will not work).
+1) "pulseLenght" is set to 99 in object construcor. It must be 99 or lower (with 100 and above RaspberryPi/OrangePi will not work).
 So receiver must be configured accordingly: "RFReceiver receiver(INPUT_PIN, 99); //sets pulseLength to 99".
 
 2) Added libraries necessary for compiling on linux.
 3) Changed some variable types, so they are compatible with linux copilers
 4) Changed the random function. It defers from the one for arduino 
 
-Links to wiringpi.h libraries:
-RaspberryPi: http://wiringpi.com/download-and-install/
-OrangePi-Zero: https://github.com/xpertsavenue/WiringOP-Zero
-OrangePi-PC: https://github.com/zhaolei/WiringOP
 
 Usage
 -----
-Receiver side: initialize it with additional parameters:
-RFReceiver receiver(INPUT_PIN, 99); //sets pulseLength to 99
 
+IMPORTANT NOTE:
+Use almost perfect 5V power supply for Receiver module (USB port cant give you such power, use additional power supplies), 
+otherwise you will experience strange behaviour while transmitting messages to it!
+
+Howewer transmitter module can operate with 3.3V - 5V power supply.
+
+
+
+Receiver side: initialize the constructor with additional parameters before the "void setup()" function:
+```cpp
+//by default, in example "INPUT_PIN" is 2
+RFReceiver receiver(INPUT_PIN, 99); //sets pulseLength to 99
+```
 
 Transmitter side:
 
@@ -36,12 +49,12 @@ Transmitter side:
 #include <wiringPi.h>
 #include <string.h>
 
-#define NODE_ID          1 // change this if you have second or third transmitter
+#define NODE_ID          1  // change this if you have second or third transmitter
 #define OUTPUT_PIN       11 //replace this with your pin on RaspberryPi/OrangePi
+#define pulseLength      99 //change it to lower if connection is not stable
 
 //Send over digital pin "OUTPUT_PIN",identify as node 1
-//you don't need to set the pulseLength to 99, I've already set it in the "RFTransmitter.h" file. 
-RFTransmitter transmitter(OUTPUT_PIN, NODE_ID);
+RFTransmitter transmitter(OUTPUT_PIN, NODE_ID, pulseLength);
 
 int main(void) 
 {
@@ -65,14 +78,22 @@ How to compile
 -----
 G++ compiler’s command: 
 
+```
 g++ -lwiringPi -o [name of executable file as result] [name of main code files] [name of library’s “.cpp” file]
-
+```
 
 example (case when all mentioned files were placed in one folder): 
 
+```
 g++ -lwiringPi -o HelloWorldTransmitter HelloWorldTransmitter.cpp RFTransmitter.cpp
+```
+After compilation just run "HelloWorldTransmitter" binary to send desired message. 
+To run it if you are in the same folder, type this and press "Enter": ./HelloWorldTransmitter
 
-After compilation just run HelloWorldTransmitter binary to send desired message. 
-To run it, type this if you are in the same folder: ./HelloWorldTransmitter
+
+
+In addition:
+Because of buffer overflow in the "millis()" function, after 50 days of running without restart, it would freeze and require restart to operate as normal again. 
+I already have a workaround for this issue, and will try to implement it in this project as soon as possible.
 
 
